@@ -24,13 +24,13 @@ public class LoginServlet extends HttpServlet
     {
         HttpSession session = request.getSession();
         
-        if (session.getAttribute("sessionuser") != null)
+        String logout = request.getParameter("logout");
+        if (session.getAttribute("sessionuser") != null && logout == null)
         {
             getServletContext().getRequestDispatcher("/WEB-INF/home.jsp")
                 .forward(request, response);
         }
         
-        String logout = request.getParameter("logout");
         if (logout != null)
         {
             //invalidate the session

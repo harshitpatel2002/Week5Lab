@@ -24,6 +24,12 @@ public class LoginServlet extends HttpServlet
     {
         HttpSession session = request.getSession();
         
+        if (session.getAttribute("sessionuser") != null)
+        {
+            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp")
+                .forward(request, response);
+        }
+        
         String logout = request.getParameter("logout");
         if (logout != null)
         {
@@ -46,7 +52,7 @@ public class LoginServlet extends HttpServlet
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        if (username.equals("") || username == null || password == null || password.equals(""))
+        if (username.equals("") || password.equals(""))
         {
             request.setAttribute("invalid", "Error: Please input both of the values.");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
@@ -54,29 +60,23 @@ public class LoginServlet extends HttpServlet
             return;
         }
         
+//        If both values are inputed
         User user = new User(username, password);
+        session.setAttribute("sessionuser", user);
         
         AccountService as = new AccountService();
-        
-//        User user = (User) session.getAttribute("user");
-        
-        User userReturn = (User) as.login(username, password);
-        
+        User userReturn = as.login(username, password);
         if (userReturn != null)
         {
-            session.setAttribute("user", userReturn);
-            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp")
-                .forward(request, response);
+            session.setAttribute("sessionuser", userReturn);
+            response.sendRedirect(request.getContextPath() + "/home");
         }
         else
         {
-            request.setAttribute("invalid", "Error: Login failed.");
+            request.setAttribute("invalid", "Login failed. Please input the correct values");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
                 .forward(request, response);
-            return;
         }
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
-        .forward(request, response);
     }
 
 }

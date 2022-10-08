@@ -24,16 +24,16 @@ public class HomeServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        String logout = request.getParameter("logout");
-        if (logout != null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp")
-                .forward(request, response);
-
-        } else {
+//        Giving null pointer exception
+        if (request.getSession(true).getAttribute("sessionuser") == null)
+        {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
+        else
+        {
             getServletContext().getRequestDispatcher("/WEB-INF/home.jsp")
                 .forward(request, response);
         }
-
     }
 
     @Override

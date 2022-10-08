@@ -14,8 +14,8 @@
     <body>
         <h2>Login</h2>
         <form action="login" method="post">
-            Username: <input type="text" name="username" value="${user.username}"><br>
-            Password: <input type="password" name="password" value="${user.password}"><br>
+            Username: <input type="text" name="username" value="${sessionuser.username}"><br>
+            Password: <input type="password" name="password" value="${sessionuser.password}"><br>
             <input type="submit" value="Log-in">
         </form>
             <p style="color: green">${logoutmsg}</p>

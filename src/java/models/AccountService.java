@@ -17,7 +17,7 @@ public class AccountService
         User user = null;
         if ((username.equals("abe") || username.equals("barb"))&& password.equals("password"))
         {
-            new User(username, password);
+            user = new User(username, null);
         }
         return user;
     }

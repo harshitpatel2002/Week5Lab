@@ -13,8 +13,12 @@
     </head>
     <body>
         <h2>Login</h2>
-        Username: <input type="text" name="username" value=""><br>
-        Password: <input type="password" name="password" value=""><br>
-        <input type="submit" value="Login">
+        <form action="login" method="post">
+            Username: <input type="text" name="username" value="${user.username}"><br>
+            Password: <input type="password" name="password" value="${user.password}"><br>
+            <input type="submit" value="Log-in">
+        </form>
+            <p style="color: green">${logoutmsg}</p>
+            <p style="color: red">${invalid}</p>
     </body>
 </html>
